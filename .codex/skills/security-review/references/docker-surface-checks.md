@@ -1,0 +1,28 @@
+# Docker Surface Checks
+
+Check these runtime seams whenever a service ships in Docker.
+
+```text
+CHECKS := PASS IF
+  image_runs_as_non_root_or_justification_exists
+  AND privileged_mode_is_absent
+  AND host_networking_is_absent
+  AND only_required_ports_are_published
+  AND secrets_are_not_baked_into_the_image
+  AND writable_mounts_are_justified
+  AND inter_container_trust_assumptions_are_explicit
+  AND health_checks_do_not_leak_secrets_or_unsafe_debug_routes
+  AND reverse_proxy_routes_do_not_expose_admin_surfaces_unintentionally
+  AND dropped_linux_capabilities_are_explicit_where_possible
+  AND read_only_root_filesystem_is_enabled_where_practical
+  AND package_managers_shells_or_debug_tools_are_not_left_in_production_without_need
+  AND build_secrets_do_not_survive_into_final_layers
+  AND env_files_and_compose_overrides_do_not_publish_staging_credentials_by_accident
+
+LOOK_ESPECIALLY_FOR := {
+  ports_entries_that_expose_admin_planes_databases_or_dashboards,
+  volumes_entries_that_mount_source_docker_socket_host_home_directories_or_secrets,
+  cap_add_privileged_network_mode_host_or_broad_device_access,
+  reverse_proxy_catch_all_routes_that_forward_admin_debug_or_internal_apis
+}
+```

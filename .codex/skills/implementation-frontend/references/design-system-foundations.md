@@ -1,0 +1,57 @@
+# Design System Foundations
+
+```text
+FOUNDATION_ORDER :=
+  1 -> tokens
+  2 -> primitives
+  3 -> states
+  4 -> patterns
+  5 -> variants
+
+TOKEN_LAYERS := {
+  semantic_tokens,
+  functional_tokens,
+  component_variants,
+  local_exceptions
+}
+
+TYPEFACE_WEIGHT_RANGE_SUPPORTS_HIERARCHY := PASS IF
+  chosen_ui_families_have_enough_reliable_weights_and_styles_for(headings, labels, controls, supporting_text)
+  AND fake_bolding_or_ad_hoc_fallback_families_are_not_required_for_basic_hierarchy
+
+THEME_TOKEN_HANDOFF := PASS IF
+  theme_token_handoff_is_explicit_between_direction_and_implementation
+  AND tokens_name_semantic_roles_not_one_screen_paint_values
+  AND typography_spacing_radius_and_shadow_rules_share_the_same_system_record
+  AND preview_or_demo_markup_reads_from_the_same_token_source_as_product_components
+  AND color_tokens_include_surface_text_accent_and_state_ladders
+  AND palette_depth_covers(neutrals, primary, accent, state)
+  AND shadow_tokens_map_to_named_elevation_tiers
+  AND light_source_direction_is_consistent_across_elevation_tokens
+  AND token_docs_record_readable_measure_and_asset_size_expectations_when_they_are_reusable
+  AND measure_and_density_expectations_are_explicit_in_token_handoff
+  AND asset_size_expectations_cover(icons, logos, screenshots, user_media)
+
+GUARDRAILS := PASS IF
+  semantic_html_is_default
+  AND semantic_tokens_are_preferred_over_direct_values
+  AND variants_are_added_in_shared_component_seam_before_local_one_off_styles
+  AND focus_styles_stay_visible
+  AND theme_decisions_preserve_contrast_and_state_clarity
+  AND component_api_maps_to_real_ux_states
+  AND component_responsibility_stays_narrow
+  AND shared_patterns_are_preferred_before_one_off_behavior
+  AND state_variants_exist_in_component_contract
+  AND layout_preserves_responsive_behavior_before_decorative_polish
+  AND spacing_and_type_hierarchy_are_documented
+  AND spacing_scale_and_typography_scale_are_validated
+  AND spacing_scale_is_non_linear_enough_to_reduce_close_call_decisions
+  AND non_linear_scale_exceptions_are_named_when_content_shape_demands_it
+  AND typography_scale_is_handcrafted_for_interface_use_not_formula_purity
+  AND component_widths_follow_content_needs_before_grid_fractions
+  AND relative_scaling_is_overridden_when_breakpoint_context_changes_the_right_proportion
+  AND borders_are_not_the_default_answer_when_spacing_background_or_shadow_can_express_separation
+  AND crisp_offset_shadow_tokens_are_allowed_when_flat_interfaces_need_depth_without_soft_blur
+  AND theme_mode_compatibility_is_explicit_when_theming_exists
+  AND transform_or_opacity_motion_is_preferred_when_animation_is_used
+```

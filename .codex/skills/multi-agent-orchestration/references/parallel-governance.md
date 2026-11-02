@@ -1,0 +1,35 @@
+# Parallel Governance
+
+```text
+PASS IF
+  orchestrator_delegates_aggregates_and_decides_convergence
+  AND slices_return_through_the_orchestrator
+  AND file_or_concern_ownership_is_declared_before_dispatch
+  AND receiver_role_identity_is_declared_before_work_starts
+  AND startup_or_workspace_trust_prompts_are_cleared_or_escalated_before_prompt_delivery
+  AND dispatch_carries_copyable_receiver_opening_line
+  AND dispatch_carries_bounded_context_instead_of_making_workers_rediscover_the_task
+  AND dispatch_does_not_require_receiver_to_read_the_parent_plan_file_to_start
+  AND clarifying_questions_are_resolved_before_execution_when_scope_is_unclear
+  AND identity_drift_is_stopped_and_rewritten_before_work_continues
+  AND self_review_happens_before_slice_return
+  AND returns_report_declared_identity_and_actual_support_paths
+  AND workspace_or_branch_state_is_recorded_when_it_affects_integration
+  AND merge_strategy_is_chosen_before_the_first_slice_starts
+  AND convergence_owner_is_named_before_acceptance_begins
+  AND shutdown_condition_is_recorded_before_convergence_starts
+
+FAIL IF
+  slice_to_slice_handoffs_bypass_the_orchestrator
+  OR ownership_is_implicit
+  OR parallel_fan_out_is_rejected_when_failures_share_a_root_cause
+  OR worker_identity_is_left_implicit
+  OR worker_boot_is_blocked_by_a_trust_prompt_and_the_blocker_is_not_recorded
+  OR dispatch_omits_the_literal_receiver_opening_line
+  OR dispatch_omits_bounded_context_or_expected_report_shape
+  OR worker_returns_as_orchestrator_without_explicit_role_bridge
+  OR worker_role_drift_is_not_stopped_and_escalated
+  OR convergence_starts_without_a_merge_strategy
+
+STOP("tighten plan or collapse fan-out") IF PASS_IF_conditions_are_not_met
+```

@@ -1,0 +1,41 @@
+# Design System Extraction
+
+```text
+USE IF
+  screenshots_or_existing_visuals_must_be_distilled_into_reusable_rules
+  OR design_direction_needs_a_shareable_system_record
+
+EXTRACTION_SCOPE := {
+  color_palette,
+  typography_scale,
+  spacing_scale,
+  elevation_and_radius_rules,
+  image_treatment_rules,
+  component_families,
+  state_behavior,
+  motion_or_transition_patterns_when_present
+}
+
+EXTRACTION_PROCESS := PASS IF
+  visual_inputs_are_reduced_into_general_rules_instead_of_screen_specific_descriptions
+  AND repeated_patterns_are_captured_as_tokens_or_component_families
+  AND edge_cases_and_state_behavior_are_recorded_when_visible
+  AND the_result_could_be_written_into(design_system_json OR equivalent_system_record)
+  AND personality_levers_are_named_as(font_choice, color_temperature, radius_style, copy_tone)
+  AND hierarchy_rules_are_extracted_as(primary, secondary, tertiary)_signals
+  AND palette_ladders_are_named_for(text, background, accent, semantic_state)
+  AND semantic_state_palettes_are_extracted_as(surface, text, border_or_badge)_pairs_not_as_isolated_swatches
+  AND accent_color_usage_is_extracted_as_structural_emphasis_not_surface_decoration
+  AND elevation_is_extracted_as(shadow_tiers OR tonal_layers OR overlap_rules)
+  AND image_contrast_cropping_and_background_decoration_rules_are_generalized
+  AND image_treatment_rules_capture_when_brand_colorizations_or_tints_can_unify_photography_without_becoming_the_primary_signal
+  AND empty_state_media_and_supporting_illustration_rules_are_separated_from_content_imagery
+  AND empty_state_rules_separate_primary_recovery_action_from_secondary_navigation_or_filter_controls
+  AND default_element_upgrades_are_generalized_for(links, lists, quotes, controls)
+
+FAIL IF
+  extracted_output_depends_on_specific_image_content
+  OR decorative_details_are_copied_without_generalized_rules
+  OR spacing_scale_or_color_palette_is_left_implicit
+  OR extracted_system_relies_on_placeholder_imagery_or_unspecified_asset_quality
+```

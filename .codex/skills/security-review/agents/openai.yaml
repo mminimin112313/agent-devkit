@@ -1,0 +1,3 @@
+assistant:
+  short_description: "Review code, runtime seams, and Docker surfaces with explicit boundaries and evidence."
+  default_prompt: "Use this skill to classify security-sensitive seams, record findings precisely, and route uncertain issues into reproducible lab work."

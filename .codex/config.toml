@@ -1,0 +1,71 @@
+[features]
+multi_agent = true
+
+[agents]
+max_threads = 12
+max_depth = 1
+job_max_runtime_seconds = 1800
+
+[agents.explorer]
+description = "Dispatch-ready codebase and governance explorer for bounded evidence-gathering before edits or delegation."
+config_file = "agents/explorer.toml"
+
+[agents.worker]
+description = "Dispatch-ready execution bridge for one narrow owned-file slice with explicit proof and handoff reporting."
+config_file = "agents/worker.toml"
+
+[agents.frontend_engineer]
+description = "Dispatch-ready frontend execution role for one approved UI seam with explicit state, proof, and handoff output."
+config_file = "agents/frontend-engineer.toml"
+
+[agents.backend_engineer]
+description = "Dispatch-ready backend execution role for one approved service or contract seam with explicit proof and handoff output."
+config_file = "agents/backend-engineer.toml"
+
+[agents.monitor]
+description = "Dispatch-ready monitor for one named status target with explicit artifact checks and delta reporting."
+config_file = "agents/monitor.toml"
+
+[agents.reviewer]
+description = "Dispatch-ready code reviewer for one bounded seam with findings-first output and explicit evidence checks."
+config_file = "agents/reviewer.toml"
+
+[agents.tech_lead]
+description = "Dispatch-ready orchestration reviewer for slice boundaries, dependency order, and technical acceptance."
+config_file = "agents/tech-lead.toml"
+
+[agents.engineering_manager]
+description = "Dispatch-ready execution-health manager for staffing pressure, sequencing risk, and blocker escalation."
+config_file = "agents/engineering-manager.toml"
+
+[agents.qa]
+description = "Dispatch-ready QA verifier for fresh proof, regression gaps, and approval completeness on one seam."
+config_file = "agents/qa.toml"
+
+[agents.devops]
+description = "Dispatch-ready DevOps reviewer for runtime readiness, rollback implications, and observability risk."
+config_file = "agents/devops.toml"
+
+[agents.security_privacy]
+description = "Dispatch-ready security and privacy reviewer for control risk, data handling, and exception-path evidence."
+config_file = "agents/security-privacy.toml"
+
+[agents.release_manager]
+description = "Dispatch-ready release manager for go-no-go routing, rollback ownership, and release-gate closure."
+config_file = "agents/release-manager.toml"
+
+[agents.platform]
+description = "Dispatch-ready platform reviewer for shared foundations, reuse pressure, and cross-boundary handoff risk."
+config_file = "agents/platform.toml"
+
+[agents.po_pm]
+description = "Dispatch-ready product decision role for scope, acceptance, milestone clarity, and approval gaps."
+config_file = "agents/po-pm.toml"
+
+[agents.ui_ux_designer]
+description = "Dispatch-ready UI-UX reviewer for flow quality, interface clarity, and experience-rationale handoff."
+config_file = "agents/ui-ux-designer.toml"
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]

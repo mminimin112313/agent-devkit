@@ -1,0 +1,26 @@
+# Data Pipeline Reliability
+
+```text
+RELIABILITY_BASELINE := PASS IF
+  reruns_are_idempotent
+  AND schema_contract_is_explicit
+  AND inputs_outputs_and_dependency_edges_are_explicit
+  AND null_and_malformed_record_handling_is_deliberate
+  AND freshness_and_completeness_checks_exist
+  AND drift_alerts_exist
+  AND retries_batching_and_timeouts_are_bounded
+  AND baseline_evidence_exists_when_throughput_or_latency_changes_visible_behavior
+  AND query_or_caching_assumptions_are_recorded_when_they_affect_correctness
+
+VALIDATION_ORDER := PASS IF
+  static_correctness_is_checked_before_runtime_when_possible
+  AND runtime_proof_happens_only_after_contract_is_inspectable
+  AND reruns_stay_safe_under_partial_failure_or_duplicate_delivery
+
+LAYER_DISCIPLINE := PASS IF
+  raw_layer_is_append_only_and_traceable
+  AND cleaned_layer_is_deduplicated_and_conformant
+  AND serving_layer_is_consumer_ready_and_sla_backed
+
+FAIL IF downstream_consumers_depend_on_unstable_intermediate_layers
+```

@@ -1,0 +1,12 @@
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.worktrees/
+artifacts/
+*.tar.gz
+*.log
+.env
+.env.*
+!.env.example
+
+prompt_reflection_status.json

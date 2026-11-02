@@ -1,0 +1,25 @@
+# Instruction Surface Contracts
+
+```text
+INSTRUCTION_SURFACE := {
+  artifact_names,
+  artifact_suffixes_or_paths,
+  governing_scope,
+  canonical_markdown_base,
+  optional_region_markers
+}
+
+PASS IF
+  distinct_artifact_suffix_or_path_is_used WHEN routing_ambiguity_drops
+  AND shared_markdown_base_over_parallel_formats WHEN the_same_contract_can_be_read_once
+  AND governance_is_path_scoped_to_the_directory_that_owns_behavior
+  AND optional_region_markers_are_used_only_for_long_operational_docs_that_need_stable_jump_points
+  AND vendor_specific_instruction_names_are_generalized_or_rejected_before_repo_local_adoption
+
+FAIL IF
+  product_specific_filenames_are_copied_without_portable_contract_reason
+  OR the_same_instruction_contract_is_split_across_parallel_formats_without_operator_value
+  OR path_scope_and_behavior_scope_diverge
+  OR region_markers_are_required_for_short_docs
+  OR naming_conventions_hide_routing_or_owner_boundaries
+```

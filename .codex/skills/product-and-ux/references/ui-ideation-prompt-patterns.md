@@ -1,0 +1,63 @@
+# UI Ideation Prompt Patterns
+
+Use prompt-style ideation only when it produces clearer design inputs and tighter output constraints.
+
+```text
+GATHER_BEFORE_IDEATION := {
+  first_feature_or_task_to_shape,
+  product_type_or_workflow,
+  target_users,
+  brand_traits_or_tone,
+  required_screens_or_components,
+  mobile_priority,
+  accessibility_target,
+  non_negotiable_constraints
+}
+
+START_SMALL := PASS IF
+  ideation_starts_from_a_real_feature_or_task_seam
+  AND the_first_pass_targets_the_smallest_useful_version
+  AND nice_to_have_scope_does_not_block_the_first_concept
+
+ASK_FOR_REVIEWABLE_OUTPUTS := PASS IF
+  prompts_request_feature_first_direction_before_shell_or_navigation_chrome
+  AND prompts_request_information_hierarchy_not_just_aesthetics
+  AND prompts_request_token_or_visual_direction_not_color_adjectives
+  AND prompts_request_component_or_screen_variants_not_one_polished_concept
+  AND prompts_request_explicit_do_and_do_not_rules
+  AND prompts_request_implementation_facing_constraints
+  AND prompts_request_mobile_first_type_and_spacing_direction
+  AND prompts_request_spacing_density_and_action_priority
+  AND prompts_request_personality_calibration_against_surrounding_products_without_cloning
+  AND prompts_request_empty_state_and_missing_state_behavior_when_relevant
+  AND prompts_request_font_comparison_in_real_ui_copy_and_dense_controls_when_typography_is_a_direction_variable
+
+COMPARE_CONCEPTS_ON_PURPOSE := PASS IF
+  variation_count = 2_to_3_contrasted_concepts
+  AND 2_to_3_contrasted_concepts_are_generated_when_direction_is_unclear
+  2_to_3_contrasted_concepts_are_generated_when_direction_is_unclear
+  AND each_concept_differs_on(hierarchy, density, brand_expression, mobile_behavior)
+  AND concepts_are_compared_in_a_simple_table_before_converging
+  AND chosen_and_rejected_directions_are_kept_explicit_for_later_implementation
+
+ITERATION_RULES := PASS IF
+  exploration_starts_in_grayscale_or_low_style_modes_until_structure_is_clear
+  AND fork_or_iteration_paths_keep_parent_direction_visible
+  AND each_variation_names_what_changed_and_why
+  AND low_signal_restyling_loops_are_cut_off_once_the_decision_question_is_answered
+  AND single_polished_mockups_do_not_replace_contrastive_exploration
+  AND design_build_cycles_return_to_real_implementation_pressure_early
+
+COMPONENT_REFRAMING := PASS IF
+  default_ui_primitives_can_be_restructured_when_comprehension_or_emphasis_improves
+  AND novelty_is_rejected_when_it_adds_surprise_without_clarity
+
+RED_FLAGS := FAIL IF
+  prompts_ask_for_beautiful_or_modern_without_task_context
+  OR outputs_skip_accessibility_states_or_responsive_behavior
+  OR early_polish_arrives_before_structure_and_hierarchy
+  OR single_screen_ideation_is_treated_as_whole_product_definition
+  OR decorative_style_has_no_product_implication
+  OR repo_specific_mechanics_are_imported_into_a_general_ux_skill
+  OR app_shell_decisions_precede_feature_level_exploration
+```

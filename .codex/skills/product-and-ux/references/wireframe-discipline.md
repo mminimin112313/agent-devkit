@@ -1,0 +1,33 @@
+# Wireframe Discipline
+
+```text
+USE IF
+  layout_flow_and_hierarchy_need_decision_before_visual_polish
+  OR feature_first_direction_is_missing
+  OR the_team_needs_low_fidelity_direction_without_theme_lock_in
+
+BLACK_AND_WHITE_WIREFRAMES := PASS IF
+  black_and_white_wireframes_keep_attention_on(layout_flow_and_hierarchy)
+  AND imagery_is_replaced_with_structural_placeholders
+  AND annotations_do_not_replace_the_actual_wireframe_structure
+  AND screen_to_screen_flow_is_visible_when_multiple_steps_exist
+  AND spacing_contrast_and_size_do_the_heavy_lifting_before_color
+
+LOW_FIDELITY_RULES := PASS IF
+  typography_and_spacing_are_roughly_ordered_without_theme_specific_styling
+  AND primary_actions_and_navigation_paths_are_obvious
+  AND component_density_is_tested_before_surface_detail
+  AND empty_or_missing_states_are_shaped_before_polish
+  AND visual_hierarchy_is_proven_with_spacing_contrast_and_labels_before_surface_treatment
+  AND spacing_within_groups_stays_tighter_than_spacing_between_groups
+  AND wireframes_remain_easy_to_revise_after_feedback
+  AND early_layouts_are_treated_as_disposable
+  AND white_space_starts_generous_before_being_compacted
+  AND feature_flow_is_designed_before_global_shell_polish
+
+FAIL IF
+  wireframes_add_brand_polish_before_task_flow_is_clear
+  OR decorative_imagery_hides_missing_structure
+  OR one_screen_mockup_is_treated_as_end_to_end_flow_proof
+  OR low_fidelity_work_implies_unbuilt_nice_to_have_functionality
+```

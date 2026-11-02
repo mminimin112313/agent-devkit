@@ -1,0 +1,37 @@
+# Component State Checklist
+
+```text
+PASS IF
+  component_purpose_and_primary_task_are_defined
+  AND framework_or_runtime_is_defined
+  AND props_or_input_contract_is_defined
+  AND watched_test_fail_before_implementation
+  AND failure_reason_confirmed
+  AND minimal_code_written_to_pass
+  AND typing_strategy_is_defined
+  AND styling_approach_is_defined
+  AND variant_strategy_is_defined
+  AND idle_state_is_defined
+  AND error_state_is_defined
+  AND disabled_or_blocked_state_is_defined
+  AND loading_state_is_defined_or_marked_not_applicable
+  AND success_state_is_defined_or_marked_not_applicable_when_the_result_is_visible_in_place
+  AND empty_state_is_defined_or_marked_not_applicable
+  AND validation_failure_state_is_defined_or_marked_not_applicable
+  AND permission_limited_state_is_defined_or_marked_not_applicable
+  AND async_recovery_path_is_defined
+  AND validation_is_defined_where_input_exists
+  AND helper_text_exists_only_where_format_or_constraint_is_not_inferable_from_label
+  AND focus_and_keyboard_behavior_are_checked
+  AND aria_roles_labels_and_announcements_are_checked
+  AND responsive_behavior_is_checked
+  AND render_cost_or_interaction_risk_is_checked_for_large_or_hot_paths
+  AND reduced_motion_or_motion_fallback_is_checked_when_animation_exists
+
+FAIL IF
+  component_purpose_is_implicit
+  OR watched_test_fail_before_implementation IS missing
+  OR critical_state_is_missing
+  OR focus_keyboard_or_aria_behavior_is_not_checked
+  OR responsive_behavior_is_not_checked
+```

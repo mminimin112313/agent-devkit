@@ -1,0 +1,17 @@
+# Schema And Lineage Rules
+
+```text
+LINEAGE_DISCIPLINE := PASS IF
+  producer_and_consumer_are_recorded_for_every_changed_field
+  AND source_and_destination_are_recorded_for_every_changed_workflow_step
+  AND defaulting_and_null_semantics_are_explicit
+  AND additive_evolution_is_preferred_unless_breaking_change_is_approved
+  AND drift_detection_or_validation_behavior_is_exposed
+  AND provenance_is_preserved_when_records_cross_system_boundaries
+  AND consumer_impact_is_recorded_when_timing_freshness_or_staleness_changes_behavior
+  AND idempotency_expectation_is_recorded_when_field_participates_in_reruns_or_deduplication
+  AND query_or_caching_assumptions_are_recorded_when_derived_data_depends_on_them
+  AND downstream_breakage_is_named_for_field_step_or_timing_changes
+
+FAIL IF lineage_is_missing_for_schema_change
+```

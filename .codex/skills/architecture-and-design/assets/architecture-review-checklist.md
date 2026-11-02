@@ -1,0 +1,35 @@
+# Architecture Review Checklist
+
+```text
+PASS IF
+  support_files_are_declared_before_decision
+  AND required_files_were_read_before_decision
+  AND file_usage_reasoning_is_recorded
+  AND target_seam_is_named
+  AND at_least_one_alternative_was_considered
+  AND losing_options_are_rejected_explicitly
+  AND module_depth_and_hidden_design_decisions_justify_the_interface_cost
+  AND deep_domain_decisions_are_separated_from_wide_out_of_process_orchestration
+  AND managed_and_unmanaged_dependencies_are_distinguished_at_the_boundary
+  AND dependency_direction_is_explicit
+  AND consumers_and_owners_are_explicit
+  AND host_entrypoints_and_command_or_config_ids_are_named_when_runtime_is_interactive
+  AND docs_seam_and_tool_server_manifest_seam_are_explicit_when_operator_facing
+  AND session_lifecycle_state_model_is_named_when_agent_driven
+  AND agent_runtime_ui_state_boundary_is_explicit_when_ui_shell_exists
+  AND observability_baseline_is_specific
+  AND rollback_trigger_and_owner_are_defined
+  AND next_implementation_skill_is_named
+
+FAIL IF
+  support_files_are_only_declared_but_not_read
+  OR target_seam_is_implicit
+  OR dependency_direction_is_missing
+  OR host_entrypoints_or_command_or_config_ids_are_missing_when_relevant
+  OR docs_seam_or_tool_server_manifest_seam_are_missing_when_relevant
+  OR session_lifecycle_state_model_is_missing_when_relevant
+  OR agent_runtime_ui_state_boundary_is_missing_when_relevant
+  OR observability_baseline_is_generic
+  OR rollback_trigger_and_owner_are_missing
+  OR next_implementation_skill_is_missing
+```

@@ -1,0 +1,163 @@
+name: security-scans
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - agent-skills-pass1
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  trufflehog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Run TruffleHog
+        uses: trufflesecurity/trufflehog@v3.91.1
+        with:
+          path: ./
+          base: ${{ github.event.pull_request.base.sha || github.event.before }}
+          head: ${{ github.event.pull_request.head.sha || github.sha }}
+          extra_args: --results=verified,unknown
+
+      - name: Record TruffleHog evidence pointer
+        if: always()
+        run: |
+          cat <<'EOF' > trufflehog-evidence.txt
+          tool=trufflehog
+          job=trufflehog
+          scope_base=${{ github.event.pull_request.base.sha || github.event.before }}
+          scope_head=${{ github.event.pull_request.head.sha || github.sha }}
+          findings_location=github_actions_job_log_and_annotations
+          EOF
+
+      - name: Upload TruffleHog artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trufflehog-evidence
+          path: trufflehog-evidence.txt
+
+  trivy:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Run Trivy filesystem scan
+        id: trivy-scan
+        run: |
+          set +e
+          docker run --rm \
+            -v "$PWD:/workspace" \
+            -w /workspace \
+            aquasec/trivy:0.65.0 \
+            fs \
+            --format sarif \
+            --output trivy-results.sarif \
+            --severity HIGH,CRITICAL \
+            --ignore-unfixed \
+            --scanners vuln,misconfig \
+            ./
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          if [ "$status" -ne 0 ] && [ "$status" -ne 1 ]; then
+            exit "$status"
+          fi
+          exit 0
+
+      - name: Upload Trivy SARIF
+        if: always() && hashFiles('trivy-results.sarif') != ''
+        continue-on-error: true
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: trivy-results.sarif
+          category: trivy
+
+      - name: Upload Trivy artifact
+        if: always() && hashFiles('trivy-results.sarif') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-results
+          path: trivy-results.sarif
+
+      - name: Fail on Trivy findings
+        if: steps.trivy-scan.outputs.exit_code == '1'
+        run: |
+          echo "Trivy reported HIGH or CRITICAL findings. Review the SARIF upload."
+          exit 1
+
+  kingfisher:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Install Kingfisher
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/mongodb/kingfisher/v1.68.0/scripts/install-kingfisher.sh | bash
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Run Kingfisher repository scan
+        id: kingfisher-scan
+        run: |
+          set +e
+          kingfisher scan . \
+            --git-history none \
+            --exclude '.git/**' \
+            --exclude '.git' \
+            -o sarif=kingfisher-results.sarif,json=kingfisher-results.json
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          if [ "$status" -ne 0 ] && [ "$status" -ne 200 ]; then
+            exit "$status"
+          fi
+          exit 0
+
+      - name: Upload Kingfisher SARIF
+        if: always() && hashFiles('kingfisher-results.sarif') != ''
+        continue-on-error: true
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: kingfisher-results.sarif
+          category: kingfisher
+
+      - name: Upload Kingfisher artifact
+        if: always() && (hashFiles('kingfisher-results.sarif') != '' || hashFiles('kingfisher-results.json') != '')
+        uses: actions/upload-artifact@v4
+        with:
+          name: kingfisher-results
+          path: |
+            kingfisher-results.sarif
+            kingfisher-results.json
+
+      - name: Fail on Kingfisher findings
+        if: steps.kingfisher-scan.outputs.exit_code == '200'
+        run: |
+          echo "Kingfisher reported findings. Review the job log and uploaded artifacts."
+          exit 1

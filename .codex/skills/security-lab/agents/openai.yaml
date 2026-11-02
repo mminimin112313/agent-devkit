@@ -1,0 +1,3 @@
+assistant:
+  short_description: "Run bounded Docker-based security exercises against self-owned local targets."
+  default_prompt: "Use this skill to bootstrap a local security lab, run bounded checks, preserve evidence, and verify fixes without leaving the lab network."

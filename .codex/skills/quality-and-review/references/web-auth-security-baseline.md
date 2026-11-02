@@ -1,0 +1,27 @@
+# Web Auth Security Baseline
+
+Apply this baseline when a seam includes login, signup, sessions, cookies, or deploy configuration for an authenticated web application.
+
+```text
+USE_THIS_BASELINE IF seam_includes(login OR signup OR sessions OR cookies OR deploy_config_for_authenticated_web_app)
+
+AUTH_ABUSE := PASS IF
+  brute_force_and_credential_stuffing_exposure_is_checked_on(login, signup, password_reset)_paths
+  AND some_throttling_or_abuse_control_exists_where_repeated_unauthenticated_requests_amplify_risk
+  AND limiter_scope_and_fallback_behavior_are_recorded
+
+ENUMERATION_AND_ERROR_SHAPE := PASS IF
+  responses_do_not_reveal_whether_email_username_or_account_exists_when_that_knowledge_is_unnecessary
+  AND auth_failures_stay_generic_when_specificity_would_help_attackers
+  AND unhandled_server_errors_do_not_expose_raw_exception_text
+
+SECRETS_AND_SESSION_SAFETY := PASS IF
+  production_secrets_replace_predictable_defaults
+  AND cookie_flags_csrf_posture_and_same_origin_assumptions_are_checked_where_session_auth_is_used
+  AND logs_and_diagnostics_do_not_leak_credentials_tokens_or_secret_values
+
+EDGE_CONTROLS := PASS IF
+  baseline_browser_hardening_headers_are_checked_for_authenticated_content
+  AND csp_anti_framing_and_transport_expectations_are_considered
+  AND deliberate_exceptions_are_recorded_instead_of_silently_omitted
+```

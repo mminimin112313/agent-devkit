@@ -1,0 +1,42 @@
+# Web App Review Playbook
+
+Use this reference when the seam is an HTTP request or response path.
+
+```text
+USE_THIS_PLAYBOOK IF seam_is_http_request_or_response_bound
+
+AUTHN_AUTHZ := PASS IF
+  route_is_traced_from_ingress_to_business_action
+  AND server_enforces(role, tenant, object_ownership)_instead_of_the_client
+  AND alternate_endpoints_method_overrides_graphql_fields_background_jobs_and_internal_apis_do_not_bypass_the_main_guard
+  AND password_reset_invitation_email_change_and_token_issuance_flows_cannot_be_replayed_or_guessed
+
+XSS_AND_CONTENT_RENDERING := PASS IF
+  every_user_controlled_content_sink_is_identified_in(html, markdown, rich_text, templates, emails, pdfs)
+  AND sanitization_and_encoding_match_the_actual_sink_context
+  AND svg_html_snippets_markdown_with_raw_html_and_wysiwyg_content_are_treated_as_active_content_risk
+  AND csp_sandboxing_and_cookie_flags_are_treated_as_impact_reducers_not_encoding_replacements
+
+SQLI_AND_DATA_ACCESS := PASS IF
+  string_built_sql_dynamic_order_by_filter_fragments_and_search_clauses_are_reviewed
+  AND every_interpolated_input_uses_parameterization
+  AND orm_escape_hatches_raw_query_helpers_analytics_exports_and_admin_reporting_paths_are_checked
+  AND verbose_db_errors_do_not_reach_the_client
+
+SSRF_OUTBOUND_FETCH := PASS IF
+  import_from_url_image_proxy_webhook_oembed_pdf_render_crawler_and_health_check_features_are_located
+  AND explicit_allowlists_exist_for(scheme, host, port)
+  AND loopback_link_local_rfc1918_metadata_ips_and_redirect_chains_into_private_space_are_blocked
+  AND outbound_requests_do_not_forward_sensitive_headers_or_cookies_to_untrusted_destinations
+
+FILESYSTEM_UPLOAD_COMMAND := PASS IF
+  upload_validation_checks(type, size, extension, server_side_content)
+  AND extracted_archive_entries_cannot_escape_the_intended_directory
+  AND filenames_paths_and_conversion_commands_do_not_reach_shell_or_filesystem_operations_unsafely
+  AND command_execution_uses_static_binaries_and_argument_arrays
+
+SECRETS_LOGGING_DEBUG := PASS IF
+  secrets_are_sought_in(environment_dumps, debug_endpoints, logs, trace_spans, crash_pages, browser_responses)
+  AND auth_headers_session_ids_csrf_tokens_presigned_urls_and_reset_tokens_are_redacted
+  AND metrics_and_debug_endpoints_are_not_reachable_from_untrusted_paths
+```

@@ -1,0 +1,29 @@
+# Backend Architecture Review
+
+```text
+ARCHITECTURE_REVIEW := PASS IF
+  public_seam_is_named
+  AND discoverability_is_explicit_for_operator_facing_seams
+  AND dependency_boundary_is_explicit
+  AND validation_happens_at_the_boundary
+  AND structured_response_or_schema_shape_is_named_when_consumers_depend_on_it
+  AND filtering_or_pagination_behavior_is_named_for_query_like_seams
+  AND side_effects_are_isolated_from_decision_logic_where_practical
+  AND deep_interface_hides_representation_and_avoids_pass_through_layers
+  AND managed_and_unmanaged_dependencies_are_separated_cleanly
+  AND atomic_transaction_or_unit_of_work_boundary_is_explicit_when_state_mutates
+  AND compatibility_story_exists_for_changed_callers_or_consumers
+  AND error_behavior_is_actionable
+  AND caching_indexing_or_queue_behavior_is_acknowledged_when_relevant
+  AND rollback_sensitivity_is_called_out
+
+FAIL IF
+  contract_widens_implicitly
+  OR convenience_imports_couple_modules
+  OR pass_through_methods_or_variables_add_indirection_without_abstraction
+  OR domain_logic_and_out_of_process_io_are_tangled_in_one_overcomplicated_unit
+  OR database_or_queue_changes_have_no_consumer_impact_note
+  OR generic_errors_hide_failing_boundary
+  OR operator_facing_seams_require_guesswork_to_find_the_right_operation_or_parse_results
+  OR performance_sensitive_seams_change_without_query_payload_batching_or_retry_note
+```

@@ -1,0 +1,22 @@
+# Step Control Rules
+
+```text
+PASS IF
+  plan_scaffold_exists_before_section_level_detail
+  AND highest_uncertainty_or_riskiest_section_is_filled_before_summary_sections
+  AND only_one_active_step_is_in_progress
+  AND every_active_step_is_small_enough_to_execute_without_replanning
+  AND adjacent_ideas_are_parked_instead_of_expanding_the_owned_seam
+  AND each_step_has_a_clean_stop_point_before_forward_motion
+  AND execution_handoff_names_the_exact_proof_command_and_expected_signal
+  AND a_fresh_reviewer_can_locate(seam AND proof_path AND non_goals AND stop_point)_from_the_plan_only
+  AND later_parallel_safe_work_routes_to_multi-agent-orchestration
+  AND every_handoff_includes_summary_plus_next_owner_or_next_action
+
+FAIL IF
+  multiple_active_steps_compete_for_attention
+  OR summary_sections_are_completed_before_core_section_uncertainty_is_reduced
+  OR the_owned_seam_expands_mid_plan
+  OR a_fresh_reader_needs_session_memory_to_answer_basic_handoff_questions
+  OR a_handoff_lacks_the_next_owner
+```
